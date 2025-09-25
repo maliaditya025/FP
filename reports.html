@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelligentAlgo Trade - Reports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .sidebar {
+            transition: all 0.3s;
+        }
+        .card {
+            background: rgba(26, 32, 44, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .profit {
+            color: #10B981;
+        }
+        .loss {
+            color: #EF4444;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen flex">
+    <!-- Sidebar -->
+    <div class="sidebar bg-gray-800 w-64 min-h-screen fixed hidden md:block">
+        <div class="p-4 flex items-center space-x-3 border-b border-gray-700">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <i data-feather="activity" class="text-white"></i>
+            </div>
+            <h1 class="text-xl font-bold">IntelligentAlgo</h1>
+        </div>
+        <nav class="p-4">
+            <div class="space-y-2">
+                <a href="dashboard.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                    <i data-feather="home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="settings.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                    <i data-feather="settings"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="trade-history.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                    <i data-feather="dollar-sign"></i>
+                    <span>Trade History</span>
+                </a>
+                <a href="reports.html" class="flex items-center space-x-3 p-3 rounded-lg bg-gray-700 text-white">
+                    <i data-feather="file-text"></i>
+                    <span>Reports</span>
+                </a>
+            </div>
+        </nav>
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center">
+                    <i data-feather="user" class="text-white text-sm"></i>
+                </div>
+                <div>
+                    <div class="text-sm font-medium">Admin User</div>
+                    <div class="text-xs text-gray-400">admin@intelligentalgo.com</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile header -->
+    <div class="md:hidden fixed top-0 left-0 right-0 bg-gray-800 p-4 flex justify-between items-center z-10">
+        <button id="menu-toggle" class="text-gray-300">
+            <i data-feather="menu"></i>
+        </button>
+        <h1 class="text-xl font-bold">Reports</h1>
+        <div class="w-8"></div>
+    </div>
+
+    <!-- Mobile sidebar -->
+    <div id="mobile-sidebar" class="fixed inset-0 bg-gray-900 bg-opacity-90 z-20 hidden">
+        <div class="bg-gray-800 w-64 h-full p-4">
+            <div class="flex justify-end">
+                <button id="close-menu" class="text-gray-300">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <nav class="mt-8">
+                <div class="space-y-4">
+                    <a href="dashboard.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                        <i data-feather="home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="settings.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                        <i data-feather="settings"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="trade-history.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                        <i data-feather="dollar-sign"></i>
+                        <span>Trade History</span>
+                    </a>
+                    <a href="reports.html" class="flex items-center space-x-3 p-3 rounded-lg bg-gray-700 text-white">
+                        <i data-feather="file-text"></i>
+                        <span>Reports</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-1 md:ml-64 mt-16 md:mt-0 p-6">
+        <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center">
+            <div>
+                <h2 class="text-2xl font-bold mb-1">Performance Reports</h2>
+                <p class="text-gray-400">Detailed analytics and performance metrics</p>
+            </div>
+            <div class="mt-3 md:mt-0 flex space-x-2">
+                <button class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium flex items-center">
+                    <i data-feather="download" class="mr-2 w-4 h-4"></i>
+                    Export PDF
+                </button>
+                <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium flex items-center">
+                    <i data-feather="refresh-cw" class="mr-2 w-4 h-4"></i>
+                    Generate Report
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Monthly Performance -->
+            <div class="card rounded-xl p-5" data-aos="fade-up">
+                <div class="flex items-center mb-4">
+                    <div class="bg-blue-600 p-2 rounded-lg mr-3">
+                        <i data-feather="bar-chart-2" class="text-white"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg">Monthly Performance</h3
+</body>
+</html>

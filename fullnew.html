@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelligentAlgo Trade</title>
+    <style>
+        .page { display: none; }
+        .page.active { display: block; }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page" class="page active">
+        <style type="text/css">
+            body, html {
+                margin: 0px;
+                padding: 0px;
+                height: 100%;
+                width: 100%;
+                background-color: #1a202c;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            }
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+            .login-box {
+                background-color: #ffffff;
+                padding: 2rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                width: 100%;
+                max-width: 400px;
+            }
+            .login-box h1 {
+                font-size: 1.875rem;
+                font-weight: 700;
+                color: #2563eb;
+                text-align: center;
+                margin-bottom: 0.5rem;
+            }
+            .login-box p {
+                color: #4a5568;
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
+            .form-group {
+                margin-bottom: 1rem;
+            }
+            .form-group label {
+                display: block;
+                color: #2d3748;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+            }
+            .form-group input {
+                width: 100%;
+                padding: 0.5rem;
+                border: 1px solid #e2e8f0;
+                border-radius: 0.25rem;
+                font-size: 1rem;
+                color: #2d3748;
+            }
+            .form-options {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1rem;
+            }
+            .form-options label {
+                display: flex;
+                align-items: center;
+                color: #4a5568;
+            }
+            .form-options a {
+                color: #2563eb;
+                text-decoration: none;
+            }
+            .form-options a:hover {
+                text-decoration: underline;
+            }
+            .btn {
+                width: 100%;
+                padding: 0.75rem;
+                border-radius: 0.25rem;
+                font-size: 1rem;
+                font-weight: 500;
+                text-align: center;
+                cursor: pointer;
+            }
+            .btn-primary {
+                background-color: #2563eb;
+                color: #ffffff;
+                border: none;
+            }
+            .btn-primary:hover {
+                background-color: #1d4ed8;
+            }
+            .btn-secondary {
+                background-color: #48bb78;
+                color: #ffffff;
+                border: none;
+                margin-top: 1rem;
+            }
+            .btn-secondary:hover {
+                background-color: #38a169;
+            }
+            .text-center {
+                text-align: center;
+            }
+            .mt-4 {
+                margin-top: 1rem;
+            }
+        </style>
+        <div class="container">
+            <div class="login-box">
+                <h1>IntelligentAlgo Trade</h1>
+                <p>Algorithmic Trading Platform</p>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="form-options">
+                        <label><input type="checkbox"> Remember me</label>
+                        <a href="#">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                    <div class="text-center mt-4">
+                        <p>Or connect with</p>
+                        <button type="button" class="btn btn-secondary">Connect with DHAN API</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Layout for Dashboard, Settings, Trade History, Reports -->
+    <div id="main-layout" class="page">
+        <style type="text/css">
+            body, html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                background-color: #f7fafc;
+            }
+            .container {
+                display: flex;
+                height: 100vh;
+            }
+            .sidebar {
+                width: 250px;
+                background-color: #2d3748;
+                color: #ffffff;
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+            }
+            .sidebar img {
+                height: 40px;
+                margin-bottom: 1rem;
+            }
+            .sidebar h2 {
+                font-size: 1.25rem;
+                font-weight: 700;
+                margin-bottom: 1.5rem;
+            }
+            .sidebar nav a {
+                display: block;
+                padding: 0.5rem 1rem;
+                color: #e2e8f0;
+                text-decoration: none;
+                border-radius: 0.25rem;
+                margin-bottom: 0.5rem;
+            }
+            .sidebar nav a:hover {
+                background-color: #4a5568;
+            }
+            .sidebar .user-info {
+                margin-top: auto;
+            }
+            .sidebar .user-info img {
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                margin-bottom: 0.5rem;
+            }
+            .sidebar .user-info p {
+                margin: 0.25rem 0;
+            }
+            .main-content {
+                flex: 1;
+                padding: 2rem;
+                overflow-y: auto;
+            }
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2rem;
+            }
+            .header img {
+                height: 40px;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #2d3748;
+            }
+            .mobile-nav {
+                display: none;
+            }
+            @media (max-width: 768px) {
+                .sidebar {
+                    display: none;
+                }
+                .mobile-nav {
+                    display: block;
+                    background-color: #2d3748;
+                    padding: 1rem;
+                }
+                .mobile-nav a {
+                    display: inline-block;
+                    color: #e2e8f0;
+                    padding: 0.5rem;
+                    text-decoration: none;
+                }
+                .mobile-nav a:hover {
+                    background-color: #4a5568;
+                    border-radius: 0.25rem;
+                }
+            }
+            .card {
+                background-color: #ffffff;
+                border-radius: 0.5rem;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            .card h2 {
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: #2d3748;
+                margin-bottom: 1rem;
+            }
+            .card p {
+                color: #4a5568;
+            }
+            .btn {
+                padding: 0.5rem 1rem;
+                border-radius: 0.25rem;
+                font-size: 0.875rem;
+                font-weight: 500;
+                cursor: pointer;
+            }
+            .btn-primary {
+                background-color: #2563eb;
+                color: #ffffff;
+                border: none;
+            }
+            .btn-primary:hover {
+                background-color: #1d4ed8;
+            }
+            .btn-secondary {
+                background-color: #48bb78;
+                color: #ffffff;
+                border: none;
+            }
+            .btn-secondary:hover {
+                background-color: #38a169;
+            }
+            .btn-gray {
+                background-color: #e2e8f0;
+                color: #2d3748;
+            }
+            .btn-gray:hover {
+                background-color: #cbd5e0;
+            }
+            .text-green {
+                color: #48bb78;
+            }
+            .text-red {
+                color: #e53e3e;
+            }
+            .grid {
+                display: grid;
+                gap: 1.5rem;
+            }
+            .grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            @media (max-width: 1024px) {
+                .grid-cols-3 {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            @media (max-width: 768px) {
+                .grid-cols-3, .grid-cols-2 {
+                    grid-template-columns: 1fr;
+                }
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 1rem;
+            }
+            th, td {
+                padding: 0.75rem;
+                text-align: left;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            th {
+                background-color: #edf2f7;
+                font-weight: 600;
+                color: #2d3748;
+            }
+            .pagination {
+                display: flex;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+            .pagination a, .pagination span {
+                padding: 0.5rem 1rem;
+                margin: 0 0.25rem;
+                border-radius: 0.25rem;
+                background-color: #e2e8f0;
+                color: #2d3748;
+                text-decoration: none;
+            }
+            .pagination a:hover {
+                background-color: #cbd5e0;
+            }
+        </style>
+        <div class="container">
+            <div class="sidebar">
+                <img src="logo.png" alt="Logo">
+                <h2>IntelligentAlgo</h2>
+                <nav>
+                    <a href="#dashboard">Dashboard</a>
+                    <a href="#settings">Settings</a>
+                    <a href="#trade-history">Trade History</a>
+                    <a href="#reports">Reports</a>
+                </nav>
+                <div class="user-info">
+                    <img src="user.png" alt="User">
+                    <p><strong>Admin User</strong></p>
+                    <p>admin@intelligentalgo.com</p>
+                </div>
+            </div>
+            <div class="mobile-nav">
+                <a href="#dashboard">Dashboard</a>
+                <a href="#settings">Settings</a>
+                <a href="#trade-history">Trade History</a>
+                <a href="#reports">Reports</a>
+            </div>
+            <div class="main-content">
+                <!-- Dashboard Page -->
+                <div id="dashboard-page" class="page">
+                    <div class="header">
+                        <img src="logo.png" alt="Logo">
+                        <h1>Dashboard</h1>
+                    </div>
+                    <div class="grid grid-cols-3">
+                        <div class="card">
+                            <h2>Market Data</h2>
+                            <p>BANKNIFTY INDEX<br>NIFTY INDEX<br>FINNIFTY INDEX</p>
+                            <div class="grid grid-cols-2 gap-2 mt-2">
+                                <div><strong>LTP:</strong> 45,320.50</div>
+                                <div><strong>ATM Strike:</strong> 45,300</div>
+                                <div><strong>Volume:</strong> 12.5M</div>
+                                <div><strong>OI Change:</strong> +8.2%</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h2>Strikes Analysis</h2>
+                            <div class="grid grid-cols-3 gap-2 mt-2">
+                                <div><strong>ITM:</strong> 45,000</div>
+                                <div><strong>ATM:</strong> 45,300</div>
+                                <div><strong>OTM:</strong> 45,500</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h2>AI Trade Signal</h2>
+                            <p class="text-green">LIVE</p>
+                            <p><strong>BankNifty 45000 CE @ 120</strong></p>
+                            <p>Target: 160 (+33%)<br>SL: 95 (-20%)</p>
+                            <p>"Strong bullish momentum detected with 78% confidence. RSI divergence suggests upward movement likely in next 30 minutes."</p>
+                            <p><strong>Confidence:</strong> 78%<br>Updated: Just now</p>
+                        </div>
+                        <div class="card">
+                            <h2>Trade Execution</h2>
+                            <p><strong>Auto-trading:</strong> OFF</p>
+                            <button class="btn btn-primary">Approve Trade</button>
+                            <h3>Open Positions</h3>
+                            <p>BANKNIFTY 45000 CE<br>Entry: 120</p>
+                            <p class="text-green">+28.50 (23.75%)<br>LTP: 148.50</p>
+                        </div>
+                        <div class="card">
+                            <h2>Google Sheets Sync</h2>
+                            <p class="text-green">ACTIVE</p>
+                            <p><strong>Last Sync:</strong> 2 minutes ago</p>
+                            <button class="btn btn-primary">Force Sync Now</button>
+                            <button class="btn btn-primary">Open Google Sheet</button>
+                        </div>
+                        <div class="card">
+                            <h2>Telegram Bot</h2>
+                            <p class="text-green">CONNECTED</p>
+                            <p><strong>Latest Notification:</strong><br>Executed BUY BANKNIFTY 45000 CE @ 120. Target: 160, SL: 95<br>2 minutes ago</p>
+                            <p><strong>Notifications Sent Today:</strong> 12</p>
+                        </div>
+                        <div class="card">
+                            <h2>Daily Performance</h2>
+                            <div class="flex space-x-2">
+                                <button class="btn btn-gray">Today</button>
+                                <button class="btn btn-gray">Week</button>
+                                <button class="btn btn-gray">Month</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Page -->
+                <div id="settings-page" class="page">
+                    <div class="header">
+                        <img src="logo.png" alt="Logo">
+                        <h1>Settings</h1>
+                    </div>
+                    <div class="card">
+                        <h2>Settings</h2>
+                        <p>Configure your trading platform settings</p>
+                    </div>
+                    <div class="grid grid-cols-2">
+                        <div class="card">
+                            <h2>Broker API Setup</h2>
+                            <p><strong>Broker:</strong><br>DHAN API<br>Zerodha (Coming Soon)<br>Upstox (Coming Soon)</p>
+                            <div class="form-group">
+                                <label>API Key</label>
+                                <input type="text">
+                            </div>
+                            <div class="form-group">
+                                <label>API Secret</label>
+                                <input type="text">
+                            </div>
+                            <div class="form-group">
+                                <label>Access Token</label>
+                                <input type="text">
+                            </div>
+                            <button class="btn btn-primary">Connect to Broker</button>
+                        </div>
+                        <div class="card">
+                            <h2>Google Sheets Sync</h2>
+                            <div class="form-group">
+                                <label>Google Sheet URL</label>
+                                <input type="text">
+                            </div>
+                            <div class="form-group">
+                                <label>Sync Frequency</label>
+                                <select>
+                                    <option>Real-time (immediate)</option>
+                                    <option>Every 5 minutes</option>
+                                    <option>Every 15 minutes</option>
+                                    <option>Every hour</option>
+                                </select>
+                            </div>
+                            <label><input type="checkbox"> Enable Sync</label>
+                            <button class="btn btn-primary">Test Connection</button>
+                        </div>
+                        <div class="card">
+                            <h2>Risk Management</h2>
+                            <div class="form-group">
+                                <label>Max Lots Per Trade</label>
+                                <input type="number">
+                            </div>
+                            <div class="form-group">
+                                <label>Max Trades Per Day</label>
+                                <input type="number">
+                            </div>
+                            <div class="form-group">
+                                <label>Global Stop Loss (%)</label>
+                                <input type="number">
+                            </div>
+                            <div class="form-group">
+                                <label>Global Target (%)</label>
+                                <input type="number">
+                            </div>
+                            <div class="form-group">
+                                <label>Max Daily Loss (₹)</label>
+                                <input type="number">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h2>Trading Mode</h2>
+                            <div class="form-group">
+                                <label>Trading Mode</label>
+                                <select>
+                                    <option>Paper Trading</option>
+                                    <option>Live Trading</option>
+                                </select>
+                            </div>
+                            <label><input type="checkbox"> Auto-trade Mode</label>
+                            <label><input type="checkbox"> Telegram Notifications</label>
+                            <label><input type="checkbox"> Email Reports</label>
+                            <div class="form-group">
+                                <label>Strategy Selection</label>
+                                <select>
+                                    <option>Momentum Breakout</option>
+                                    <option>Mean Reversion</option>
+                                    <option>RSI Divergence</option>
+                                    <option>Custom Strategy</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="btn btn-gray">Reset</button>
+                        <button class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+
+                <!-- Trade History Page -->
+                <div id="trade-history-page" class="page">
+                    <div class="header">
+                        <img src="logo.png" alt="Logo">
+                        <h1>Trade History</h1>
+                    </div>
+                    <div class="card">
+                        <h2>Trade History</h2>
+                        <p>All executed trades and performance metrics</p>
+                        <div class="flex space-x-2 mb-4">
+                            <button class="btn btn-primary">Export CSV</button>
+                            <button class="btn btn-primary">Refresh</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3">
+                        <div class="card">
+                            <h2>Today's P&L</h2>
+                            <p class="text-green">+₹4,200</p>
+                            <p>3 winning trades, 1 loss</p>
+                        </div>
+                        <div class="card">
+                            <h2>Weekly P&L</h2>
+                            <p class="text-green">+₹12,850</p>
+                            <p>12 winning trades, 3 losses</p>
+                        </div>
+                        <div class="card">
+                            <h2>Monthly P&L</h2>
+                            <p class="text-green">+₹38,450</p>
+                            <p>32 winning trades, 8 losses</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2>Performance Trend</h2>
+                        <div class="flex space-x-2 mb-4">
+                            <button class="btn btn-gray">Daily</button>
+                            <button class="btn btn-gray">Weekly</button>
+                            <button class="btn btn-gray">Monthly</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2>Trade History</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date/Time</th>
+                                    <th>Symbol</th>
+                                    <th>Type</th>
+                                    <th>Entry</th>
+                                    <th>Exit</th>
+                                    <th>Qty</th>
+                                    <th>P&L</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Today, 10:45 AM</td>
+                                    <td>BANKNIFTY 45000 CE</td>
+                                    <td>BUY</td>
+                                    <td>120.00</td>
+                                    <td>160.00</td>
+                                    <td>50</td>
+                                    <td class="text-green">+2,000.00</td>
+                                    <td>Target Hit</td>
+                                    <td><button class="btn btn-primary">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Today, 11:30 AM</td>
+                                    <td>BANKNIFTY 45200 PE</td>
+                                    <td>BUY</td>
+                                    <td>85.00</td>
+                                    <td>110.00</td>
+                                    <td>50</td>
+                                    <td class="text-green">+1,250.00</td>
+                                    <td>Target Hit</td>
+                                    <td><button class="btn btn-primary">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Today, 1:15 PM</td>
+                                    <td>BANKNIFTY 45300 CE</td>
+                                    <td>BUY</td>
+                                    <td>95.00</td>
+                                    <td>120.00</td>
+                                    <td>50</td>
+                                    <td class="text-green">+1,250.00</td>
+                                    <td>Target Hit</td>
+                                    <td><button class="btn btn-primary">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Today, 2:45 PM</td>
+                                    <td>BANKNIFTY 45400 PE</td>
+                                    <td>BUY</td>
+                                    <td>110.00</td>
+                                    <td>95.00</td>
+                                    <td>50</td>
+                                    <td class="text-red">-750.00</td>
+                                    <td>SL Hit</td>
+                                    <td><button class="btn btn-primary">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Yesterday, 10:30 AM</td>
+                                    <td>BANKNIFTY 44800 CE</td>
+                                    <td>BUY</td>
+                                    <td>90.00</td>
+                                    <td>120.00</td>
+                                    <td>50</td>
+                                    <td class="text-green">+1,500.00</td>
+                                    <td>Target Hit</td>
+                                    <td><button class="btn btn-primary">View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Showing 1 to 5 of 32 trades</p>
+                        <div class="pagination">
+                            <a href="#">&lt;</a>
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">&gt;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Page -->
+                <div id="reports-page" class="page">
+                    <div class="header">
+                        <img src="logo.png" alt="Logo">
+                        <h1>Reports</h1>
+                    </div>
+                    <div class="card">
+                        <h2>Performance Reports</h2>
+                        <p>Detailed analytics and performance metrics</p>
+                        <div class="flex space-x-2 mb-4">
+                            <button class="btn btn-primary">Export PDF</button>
+                            <button class="btn btn-primary">Generate Report</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2>Monthly Performance</h2>
+                        <!-- Placeholder for monthly performance chart/data -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple client-side routing
+        function showPage(pageId) {
+            // Handle top-level pages (login-page and main-layout)
+            document.querySelectorAll('#login-page, #main-layout').forEach(page => {
+                page.style.display = 'none';
+            });
+
+            // Handle nested content pages within main-layout
+            document.querySelectorAll('#main-layout .page').forEach(page => {
+                page.style.display = 'none';
+            });
+
+            if (pageId === 'login-page') {
+                document.getElementById('login-page').style.display = 'block';
+            } else {
+                document.getElementById('main-layout').style.display = 'block';
+                document.getElementById(pageId).style.display = 'block';
+            }
+        }
+
+        // Handle login form submission
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Simulate login validation
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            if (email && password) {
+                showPage('dashboard-page');
+            } else {
+                alert('Please enter valid credentials');
+            }
+        });
+
+        // Handle navigation
+        document.querySelectorAll('nav a, .mobile-nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = e.target.getAttribute('href').substring(1) + '-page';
+                showPage(pageId);
+            });
+        });
+
+        // Initialize
+        showPage('login-page');
+    </script>
+</body>
+</html>

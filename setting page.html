@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelligentAlgo Trade - Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        .sidebar {
+            transition: all 0.3s;
+        }
+        .card {
+            background: rgba(26, 32, 44, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen flex">
+    <!-- Sidebar -->
+    <div class="sidebar bg-gray-800 w-64 min-h-screen fixed hidden md:block">
+        <div class="p-4 flex items-center space-x-3 border-b border-gray-700">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <i data-feather="activity" class="text-white"></i>
+            </div>
+            <h1 class="text-xl font-bold">IntelligentAlgo</h1>
+        </div>
+        <nav class="p-4">
+            <div class="space-y-2">
+                <a href="dashboard.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                    <i data-feather="home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="settings.html" class="flex items-center space-x-3 p-3 rounded-lg bg-gray-700 text-white">
+                    <i data-feather="settings"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="trade-history.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                    <i data-feather="dollar-sign"></i>
+                    <span>Trade History</span>
+                </a>
+                <a href="reports.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                    <i data-feather="file-text"></i>
+                    <span>Reports</span>
+                </a>
+            </div>
+        </nav>
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center">
+                    <i data-feather="user" class="text-white text-sm"></i>
+                </div>
+                <div>
+                    <div class="text-sm font-medium">Admin User</div>
+                    <div class="text-xs text-gray-400">admin@intelligentalgo.com</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile header -->
+    <div class="md:hidden fixed top-0 left-0 right-0 bg-gray-800 p-4 flex justify-between items-center z-10">
+        <button id="menu-toggle" class="text-gray-300">
+            <i data-feather="menu"></i>
+        </button>
+        <h1 class="text-xl font-bold">Settings</h1>
+        <div class="w-8"></div>
+    </div>
+
+    <!-- Mobile sidebar -->
+    <div id="mobile-sidebar" class="fixed inset-0 bg-gray-900 bg-opacity-90 z-20 hidden">
+        <div class="bg-gray-800 w-64 h-full p-4">
+            <div class="flex justify-end">
+                <button id="close-menu" class="text-gray-300">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <nav class="mt-8">
+                <div class="space-y-4">
+                    <a href="dashboard.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                        <i data-feather="home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="settings.html" class="flex items-center space-x-3 p-3 rounded-lg bg-gray-700 text-white">
+                        <i data-feather="settings"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="trade-history.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                        <i data-feather="dollar-sign"></i>
+                        <span>Trade History</span>
+                    </a>
+                    <a href="reports.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white">
+                        <i data-feather="file-text"></i>
+                        <span>Reports</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-1 md:ml-64 mt-16 md:mt-0 p-6">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold">Settings</h2>
+            <p class="text-gray-400">Configure your trading platform settings</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Broker API Settings -->
+            <div class="card rounded-xl p-5" data-aos="fade-up">
+                <div class="flex items-center mb-4">
+                    <div class="bg-blue-600 p-2 rounded-lg mr-3">
+                        <i data-feather="dollar-sign" class="text-white"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg">Broker API Setup</h3>
+                </div>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Broker</label>
+                        <select class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm">
+                            <option>DHAN API</option>
+                            <option disabled>Zerodha (Coming Soon)</option>
+                            <option disabled>Upstox (Coming Soon)</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">API Key</label>
+                        <input type="text" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm" placeholder="Enter your API key">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">API Secret</label>
+                        <input type="password" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm" placeholder="Enter your API secret">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Access Token</label>
+                        <input type="text" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm" placeholder="Enter your access token">
+                    </div>
+                    
+                    <button class="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium">
+                        Connect to Broker
+                    </button>
+                </div>
+            </div>
+
+            <!-- Google Sheets Settings -->
+            <div class="card rounded-xl p-5" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex items-center mb-4">
+                    <div class="bg-green-600 p-2 rounded-lg mr-3">
+                        <i data-feather="file-text" class="text-white"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg">Google Sheets Sync</h3>
+                </div>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Google Sheet URL</label>
+                        <input type="text" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm" placeholder="https://docs.google.com/spreadsheets/...">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Sync Frequency</label>
+                        <select class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm">
+                            <option>Real-time (immediate)</option>
+                            <option>Every 5 minutes</option>
+                            <option>Every 15 minutes</option>
+                            <option>Every hour</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-400">Enable Sync</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                        </label>
+                    </div>
+                    
+                    <button class="w-full py-2 bg-green-600 hover:bg-green-700 rounded-lg text-sm font-medium">
+                        Test Connection
+                    </button>
+                </div>
+            </div>
+
+            <!-- Risk Management Settings -->
+            <div class="card rounded-xl p-5" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-center mb-4">
+                    <div class="bg-yellow-600 p-2 rounded-lg mr-3">
+                        <i data-feather="shield" class="text-white"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg">Risk Management</h3>
+                </div>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Max Lots Per Trade</label>
+                        <input type="number" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm" value="2" min="1" max="10">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Max Trades Per Day</label>
+                        <input type="number" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm" value="5" min="1" max="20">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Global Stop Loss (%)</label>
+                        <input type="number" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm" value="15" min="1" max="50">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Global Target (%)</label>
+                        <input type="number" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm" value="25" min="1" max="100">
+                    </div>
+                    
+                    <div class="pt-2 border-t border-gray-700">
+                        <label class="block text-sm text-gray-400 mb-1">Max Daily Loss (₹)</label>
+                        <input type="number" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm" value="5000" min="1000" max="100000">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trading Mode Settings -->
+            <div class="card rounded-xl p-5" data-aos="fade-up" data-aos-delay="300">
+                <div class="flex items-center mb-4">
+                    <div class="bg-purple-600 p-2 rounded-lg mr-3">
+                        <i data-feather="toggle-right" class="text-white"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg">Trading Mode</h3>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-400">Trading Mode</span>
+                        <div class="flex space-x-2">
+                            <button class="text-xs bg-blue-600 px-3 py-1 rounded">Paper Trading</button>
+                            <button class="text-xs bg-gray-700 px-3 py-1 rounded">Live Trading</button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-400">Auto-trade Mode</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-400">Telegram Notifications</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                        </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-400">Email Reports</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+                    
+                    <div class="pt-2 border-t border-gray-700">
+                        <label class="block text-sm text-gray-400 mb-1">Strategy Selection</label>
+                        <select class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm">
+                            <option>Momentum Breakout</option>
+                            <option>Mean Reversion</option>
+                            <option>RSI Divergence</option>
+                            <option>Custom Strategy</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-6 flex justify-end">
+            <button class="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium mr-3">
+                Reset
+            </button>
+            <button class="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium">
+                Save Changes
+            </button>
+        </div>
+    </div>
+
+    <script>
+        AOS.init();
+        feather.replace();
+        
+        // Toggle mobile menu
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-sidebar').classList.remove('hidden');
+        });
+        
+        document.getElementById('close-menu').addEventListener('click', function() {
+            document.getElementById('mobile-sidebar').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
